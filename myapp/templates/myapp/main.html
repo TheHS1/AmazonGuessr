@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>AmazonGuessr!</title>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    </head>
+
+    <body>
+        <nav> 
+            <a>Home</a>
+            <a>Leaderboard</a>
+            <a>Page 3</a>
+            <a>Page 4</a>
+
+            <!-- Change to username when logged in -->
+            <a style="float:right">Log in</a>
+        </nav>
+
+        {% block content %}
+
+
+
+        {% endblock %}
+
+        <footer>&copy; Brian Nguyen and Harjot Singh 2022</footer>
+    </body>
+</html>

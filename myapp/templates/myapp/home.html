@@ -1,23 +1,38 @@
-<!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>HiCircle</title>
-  </head>
-  <body>
-    <h1>HiCircle</h1>
-    {{name}}
-    <br>
-    {{price}}
-    <br>
-    {{ratings}}
-    <br>
-    {{category}}
-    <br>
-    {{url}}
-    <br>
-    <img src={{imageSrc}}>
-    
+{% extends 'myapp/main.html' %}
 
-  </body>
-</html>
+{% block content %}
+
+
+<!-- {{name}} -->
+<!-- <br> -->
+<!-- {{price}} -->
+<!-- <br> -->
+<!-- {{ratings}} -->
+<!-- <br> -->
+<!-- {{category}} -->
+<!-- <br> -->
+<!-- {{url}} -->
+<!-- <br> -->
+<!-- <img src={{imageSrc}}> -->
+
+
+<div id="info"> 
+    <!-- Replace info once submit button is pressed -->
+    <h2 style="float: left">Price: ???</h2>
+
+    <h2 style="float: right">Score:</h2>
+</div>
+
+<div id="imgContainer">
+    <img src="https://m.media-amazon.com/images/I/81ZXoq4mSIL._AC_SX466_.jpg" class="center" id="prodImg">
+</div>
+
+<h3>What do you think the price of this item is?</h3>
+<form action="">
+  <label for="guess">Guess (in USD):</label><br>
+  <input type="text" id="guess" name="guess"><br>
+  <input type="submit" id=submit value="Guess!">
+</form>
+    
+{% endblock %}
+

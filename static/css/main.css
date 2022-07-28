@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+nav {
+    background-color: #0F1111;
+    color: #FFFFFF;
+    margin: 0px;
+    font-size: 150%;
+    overflow: hidden
+}
+
+nav a {
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 20px;
+    float: left;
+}
+
+nav a:hover {
+    background-color: green;
+    color: white;
+}
+
+#info {
+    background-color: lightgrey;
+    margin-top: 25px;
+    color: black;
+    overflow: hidden;
+}
+
+#info h2 {
+    margin: 5px 20px;
+}
+
+#imgContainer {
+    background-color: grey;
+}
+
+#prodImg {
+    border: 2px double;
+    height: 60vh;
+    width: auto;
+}
+
+h3 {
+    margin-left: 20px;
+}
+
+form {
+    margin-left: 20px;
+}
+
+#guess {
+    width: 20vh;
+    font-size: 300%;
+}
+
+#submit {
+    font-size: 125%;
+}
+
+footer {
+    background-color: black;
+    color: white; 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
