@@ -13,8 +13,13 @@ class Products(models.Model):
     url = models.CharField(max_length=200, null=True)
     imageSrc = models.CharField(max_length=200, null=True)
 
-    #def __str__(self):  
-     #   return self.name + self.price
-
+    def __str__(self):  
+       return self.name
 
   
+class User(models.Model):
+    username = models.CharField(max_length=200, null=True)
+    password = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name

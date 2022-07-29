@@ -18,13 +18,24 @@
 
 <div id="info"> 
     <!-- Replace info once submit button is pressed -->
-    <h2 style="float: left">Price: ???</h2>
+    <h2 style="float: left">
+      Price: ???
+    </h2>
+    
+    <br>
+    
+    <h2>
+      {{name}}<br>
+      {{ratings}}<br>
+      Category: {{category}}<br>
+      {{price}}
+    </h2>
 
     <h2 style="float: right">Score:</h2>
 </div>
 
 <div id="imgContainer">
-    <img src="https://m.media-amazon.com/images/I/81ZXoq4mSIL._AC_SX466_.jpg" class="center" id="prodImg">
+  <img src={{imageSrc}} class="center" id="prodImg">
 </div>
 
 <h3>What do you think the price of this item is?</h3>
@@ -33,6 +44,8 @@
   <input type="text" id="guess" name="guess"><br>
   <input type="submit" id=submit value="Guess!">
 </form>
-    
+ 
+<!-- For the code where submit button action is, we get basically do like return "constant" * abs({{price}} - getText()) or something-->
+
 {% endblock %}
 
