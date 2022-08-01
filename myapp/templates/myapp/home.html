@@ -16,35 +16,35 @@
 <!-- <img src={{imageSrc}}> -->
 
 
-<div id="info"> 
-    <!-- Replace info once submit button is pressed -->
-    <h2 style="float: left">
-      Price: ???
-    </h2>
-    
-    <br>
-    
-    <h2>
-      {{name}}<br>
-      {{ratings}}<br>
-      Category: {{category}}<br>
-      {{price}}
-    </h2>
+<div id="main">
+    <div id="content"> 
+        <div id="info"> 
+            <!-- Replace info once submit button is pressed -->
+            <h2>Round:</h2>
+            <h2 id="totalScore">Score:</h2>
+        </div>
 
-    <h2 id='totalScore' style="float: right">Score:</h2>
+        <div id="inputForm">
+            <h2 id="hint1" hidden> title </h2>
+            <h3 id="hint2" hidden> ratings </h3>
+            <h3 id="hint3" hidden> category </h3>
+            <h3>What do you think the price of this item is?</h3>
+            <form action="" method="post">
+                <label for="guess">Guess (in USD):</label><br>
+                <input type="text" id="guess" name="guess" maxlength="7"><br>
+                <input type="submit" id="submit" value="Guess!">
+                <button type="button" id="hint" onClick="revealHint()">Hint!</button>
+            </form>
+            <br>
+            <em>* Points will be deducted for requesting a hint!</em>
+        </div>
+        
+    </div>
+    <img src={{imageSrc}} class="center" id="prodImg">
 </div>
 
-<div id="imgContainer">
-  <img src={{imageSrc}} class="center" id="prodImg">
-</div>
+<p> Add leaderboard here </p>
 
-<h3>What do you think the price of this item is?</h3>
-<form action="" method="post">
-  <label for="guess">Guess (in USD):</label><br>
-  <input type="text" id="guess" name="guess"><br>
-  <input type="submit" id=submit value="Guess!">
-</form>
- 
 <!-- For the code where submit button action is, we get basically do like return "constant" * abs({{price}} - getText()) or something-->
 
 {% endblock %}

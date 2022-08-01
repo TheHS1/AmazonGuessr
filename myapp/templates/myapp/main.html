@@ -9,13 +9,12 @@
 
     <body>
         <nav> 
-            <a>Home</a>
-            <a>Leaderboard</a>
-            <a>Page 3</a>
-            <a>Page 4</a>
-
             <!-- Change to username when logged in -->
-            <a style="float:right">Log in</a>
+            <img id="logo" src="{% static '/images/AmazonGuessrLogo.png' %}">
+            <div id="profile">
+                <h1>Let's Explore Amazon's Catalog!!</h1>
+                <a><img id="profImg"src="https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"></a>
+            </div>
         </nav>
 
         {% block content %}
@@ -24,7 +23,6 @@
 
         {% endblock %}
 
-        <footer>&copy; Brian Nguyen and Harjot Singh 2022</footer>
     </body>
 </html>
 

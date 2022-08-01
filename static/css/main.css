@@ -1,6 +1,8 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
+    font-family: "Helvetica";
 }
 
 .center {
@@ -11,67 +13,85 @@ body {
 }
 
 nav {
-    background-color: #0F1111;
-    color: #FFFFFF;
-    margin: 0px;
-    font-size: 150%;
-    overflow: hidden
-}
-
-nav a {
-    text-align: center;
-    text-decoration: none;
-    padding: 15px 20px;
-    float: left;
-}
-
-nav a:hover {
-    background-color: green;
-    color: white;
-}
-
-#info {
-    background-color: lightgrey;
-    margin-top: 25px;
-    color: black;
     overflow: hidden;
+    background-color: #FFFFFF;
+    border-bottom: 3px solid #CECECE
 }
 
-#info h2 {
-    margin: 5px 20px;
+#profile {
+    float: right;
+    background-color: #646E78;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    margin: 10px;
 }
 
-#imgContainer {
-    background-color: grey;
+#profImg {
+    height: 50px;
+    width: auto;
+    float: right;
+    background-color: #FFFFFF;
+    margin-right: 10px;
+    margin-left: 40px;
+}
+
+#logo {
+    float: left; 
+    margin-left: 10px; 
+    height: 70px; 
+    width: auto;
+    margin: 10px;
+}
+
+#main {
+    background-color: #FFFFFF;
+    display:grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    margin: 20px 10px;
+    border-top: 40px solid #7D8892;
+    border-left: 3px solid #CECECE;
+    border-right: 3px solid #CECECE;
+    border-bottom: 3px solid #CECECE;
+}
+
+#content {
+    font-size: 150%;
+}
+
+#inputForm {
+    margin-top: 100px;
+    margin-right: 10px;
 }
 
 #prodImg {
-    border: 2px double;
     height: 60vh;
     width: auto;
+    margin: 20px;
 }
 
-h3 {
-    margin-left: 20px;
-}
-
-form {
-    margin-left: 20px;
-}
 
 #guess {
     width: 20vh;
     font-size: 300%;
+    margin-bottom: 10px;
+    padding: 0px 65px;
+}
+
+#hint {
+    font-size: 175%;
+    background-color: #65D548;
+    font-weight: bold;
+    padding: 0px 20px;
 }
 
 #submit {
-    font-size: 125%;
+    font-size: 175%;
+    background-color: #65D548;
+    padding: 0px 20px;
+    font-weight: bold;
 }
 
-footer {
-    background-color: black;
-    color: white; 
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
