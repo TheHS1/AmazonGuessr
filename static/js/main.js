@@ -13,7 +13,7 @@ function calculateScore() {
 }
 
 function productEstimate() {
-    return 0.65 * price + " to " + 1.35 * price;
+    return (Math.random() * price).toFixed(2) + " to " + ((Math.random() + 1) * price).toFixed(2);
 }
 
 var revealHint = (function() {
