@@ -26,7 +26,7 @@
 
         <div id="inputForm">
             <h3>What do you think the price of this item is?</h3>
-            <form action="" method="post">{% csrf_token %}
+            <form method="post" onsubmit="score.calculateScore()">{% csrf_token %}
                 <label for="guess">Guess (in USD):</label><br>
                 <input type="text" id="guess" name="guess" maxlength="7"><br>
                 <input type="submit" id="submit" value="Guess!">
