@@ -4,6 +4,7 @@ from django.shortcuts import render
 from .models import *
 from json import dumps
 from json import loads
+import random
 
 # Create your views here.
 def index(request):
@@ -18,8 +19,6 @@ def index(request):
 
     return render(request, "myapp/home.html", context={"id": id, "result": result, "name": name, "price": price, "ratings": ratings, "category": category, "url": url, "imageSrc": imageSrc})
 
-
-
 def getDBData(request):
     # Use request id to get relevant data from db
     id = loads(request.body.decode('utf-8'))['id']
@@ -33,5 +32,51 @@ def getDBData(request):
     # send a json response 
     return JsonResponse({ 'name':name, 'price':price, 'ratings':ratings, 'category':category, 'url': url }, status=200)
 
-    # some error occured
-    return JsonResponse({"error": ""}, status=400)
+def processGame(request):
+    data = loads(request.body.decode('utf-8'))
+    id = -1 
+    round = -1
+    game = None
+    user = None
+
+    if 'id' not in data:
+        user = User()
+        user.save()
+    else:
+        user = User.objects.get(id=data['id'])
+        game = Games.objects.filter(player=user.id).first()
+
+    if game is None:
+        game = Games(player=user)
+
+    if data['guess'] and 'prodID' in data:
+        product = Products.objects.get(id=data['prodID'])
+        game.roundNumber += 1
+        game.totalScore += abs(float(product.price[1:]) - float(data['guess']) * game.modifier * 500.0)
+
+    game.hintsUsed = 0
+    game.save()
+
+    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore}, status=200)
+
+def getHint(request):
+    data = loads(request.body.decode('utf-8'))
+    game = Games.objects.get(player=data['id'])
+    if(game.hintsUsed < 3):
+        product = Products.objects.get(id=data['prodID'])
+        game.hintsUsed += 1
+        returnHint = None
+
+        if (game.hintsUsed == 1):
+            returnHint = product.ratings
+            game.modifier = 0.95
+        elif (game.hintsUsed == 2):
+            returnHint = product.name
+            game.modifier = 0.85
+        elif (game.hintsUsed == 3):
+            returnHint = "$" + str(random.uniform(0, float(product.price[1:]) * 0.25)) + " to $" + str(random.uniform(float(product.price[1:]), float(product.price[1:]) * 1.25))
+            game.modifier = 0.65
+
+    game.save()
+
+    return JsonResponse({ 'hintNum': game.hintsUsed, 'hint': returnHint}, status=200)

@@ -20,13 +20,13 @@
     <div id="content"> 
         <div id="info"> 
             <!-- Replace info once submit button is pressed -->
-            <h2>Round:</h2>
-            <h2 id="totalScore">Score:</h2>
+            <h2 id="round">Round: </h2>
+            <h2 id="totalScore">Score: </h2>
         </div>
 
         <div id="inputForm">
             <h3>What do you think the price of this item is?</h3>
-            <form method="post" onsubmit="score.calculateScore()">{% csrf_token %}
+            <form method="post" onsubmit="processGame({{id}}, event)">{% csrf_token %}
                 <label for="guess">Guess (in USD):</label><br>
                 <input type="text" id="guess" name="guess" maxlength="7"><br>
                 <input type="submit" id="submit" value="Guess!">
