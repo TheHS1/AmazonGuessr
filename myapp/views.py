@@ -44,7 +44,7 @@ def processGame(request):
         user.save()
     else:
         user = User.objects.get(id=data['id'])
-        game = Games.objects.filter(player=user.id).first()
+        game = Games.objects.filter(player=user.id, finished=False).first()
 
     if game is None:
         game = Games(player=user)
@@ -53,6 +53,8 @@ def processGame(request):
         product = Products.objects.get(id=data['prodID'])
         game.roundNumber += 1
         game.totalScore += abs(float(product.price[1:]) - float(data['guess']) * game.modifier * 500.0)
+        if(game.roundNumber == 5):
+            game.finished=True
 
     game.hintsUsed = 0
     game.save()
