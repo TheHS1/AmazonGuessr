@@ -1,8 +1,6 @@
-var modifier = 1;
-document.getElementById("hint").addEventListener("click", revealHint);
-
-var totalScore = document.getElementById('totalScore').value;
-var productScore = document.getElementById('totalScore').value;
+window.onload = (event) => {
+    stepGame()
+};
 
 function getCookieValue(name) 
 {
@@ -10,58 +8,61 @@ function getCookieValue(name)
     if (match) {
         return match[2];
     }
-    else {
-        console.log('--something went wrong---');
-    }
 }
 
-function calculateScore() {
-    var score = 0;
-    score = Math.abs(price - document.getElementById('guess').value) * modifier * 500;
-    totalScore.innerHTML = totalScore + score;
-    return score;
+function processGame(prodID, event, inputText){
+    event.preventDefault();
+    stepGame(prodID);
 }
 
-function productEstimate(price) {
-    return "$" + (Math.random() * price).toFixed(2) + " to $" + ((Math.random() + 1) * price).toFixed(2);
-}
+function stepGame(prodID=""){
+    const xhttp = new XMLHttpRequest();
 
-var revealHint = (function(prodId) {
-    var hints = 0;
-    return function(prodId) {
-        // Create an XMLHttpRequest object
-        const xhttp = new XMLHttpRequest();
-
-        // Define a callback function
-        xhttp.onload = function() {
-            var response = JSON.parse(xhttp.responseText);
-            var name = response.name;
-            var ratings = response.ratings;
-            var category = response.category;
-            var price = response.price.slice(1,-1);
-            var url = response.url;
-
-            if (hints == 0) {
-                hint1.innerHTML = "Product Ratings: " + ratings;
-                hint1.style.display = "block"
-                modifier = 0.95;
-            } else if (hints == 1) {
-                hint2.innerHTML = "Product Name: " + name;
-                hint2.style.display = "block"
-                modifier = 0.85;
-            } else if (hints == 2) {
-                hint3.innerHTML = "Product Price Range " + productEstimate(parseFloat(price));
-                hint3.style.display = "block"
-                modifer = 0.65;
-            }
-            if(hints < 3) {
-                hints++;
-            }
+    // Define a callback function
+    xhttp.onload = function() {
+        var response = JSON.parse(xhttp.responseText);
+        if(!getCookieValue("id")) {
+            var expiryDate = new Date();
+            document.cookie = "id=" + response.id + "; expires=" + expiryDate.getMonth() + 1;
         }
+        round.innerHTML="Round: " + response.round;
+        totalScore.innerHTML="Score: " + response.score;
+    }
 
-        // Send a request
-        xhttp.open("POST", "getDBData");
-        xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
-        xhttp.send(JSON.stringify({id: prodId}));
-    };
-})();
+    // Send a request
+    xhttp.open("POST", "processGame");
+    xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
+    xhttp.send(JSON.stringify({
+        id: getCookieValue("id"), 
+        guess: document.getElementById('guess').value,
+        prodID: prodID,
+    }));
+}
+
+function revealHint(prodID) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        var response = JSON.parse(xhttp.responseText);
+        hintNum = response.hintNum
+        hint = response.hint
+
+        if (hintNum == 1) {
+            hint1.innerHTML = "Product Ratings: " + hint;
+            hint1.style.display = "block"
+        } else if (hintNum == 2) {
+            hint2.innerHTML = "Product Name: " + hint;
+            hint2.style.display = "block"
+        } else if (hintNum == 3) {
+            hint3.innerHTML = "Product Price Range " + hint;
+            hint3.style.display = "block"
+        }
+    }
+
+    // Send a request
+    xhttp.open("POST", "getHint");
+    xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
+    xhttp.send(JSON.stringify({
+        prodID: prodID, 
+        id: getCookieValue("id"), 
+    }));
+}
