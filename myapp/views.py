@@ -9,6 +9,7 @@ import random
 # Create your views here.
 def index(request):
     result = Products.objects.raw('SELECT * FROM myapp_products ORDER BY RANDOM() LIMIT 1')[0]
+    leaderboard = Games.objects.filter(finished=True).order_by('totalScore')[:10]
     id = dumps("%s" % (result.id))
     name = dumps("%s" % (result.name))
     price = dumps("%s" % (result.price[1:]))
@@ -17,7 +18,7 @@ def index(request):
     url = dumps("%s" % (result.url))
     imageSrc = "%s" % (result.imageSrc)
 
-    return render(request, "myapp/home.html", context={"id": id, "result": result, "name": name, "price": price, "ratings": ratings, "category": category, "url": url, "imageSrc": imageSrc})
+    return render(request, "myapp/home.html", context={"id": id, "result": result, "name": name, "price": price, "ratings": ratings, "category": category, "url": url, "imageSrc": imageSrc, "leaderboard": leaderboard})
 
 def getDBData(request):
     # Use request id to get relevant data from db

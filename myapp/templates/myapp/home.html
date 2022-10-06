@@ -43,7 +43,18 @@
     <img src={{imageSrc}} class="center" id="prodImg">
 </div>
 
-<p> Add leaderboard here </p>
+<table id="leaderboard" style="border: 1px solid black;">
+    <tr>
+        <th>ID</th>
+        <th>Score</th>
+    </tr>
+    {% for record in leaderboard %}
+    <tr>
+        <td>{{ record.player.id }}</td>
+        <td>{{ record.totalScore }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
 <!-- For the code where submit button action is, we get basically do like return "constant" * abs({{price}} - getText()) or something-->
 

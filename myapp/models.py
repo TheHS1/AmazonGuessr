@@ -31,6 +31,3 @@ class Games(models.Model):
     roundNumber = models.IntegerField(default=1)
     hintsUsed = models.IntegerField(default=0)
     finished = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.name
