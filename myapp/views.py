@@ -9,7 +9,7 @@ import random
 # Create your views here.
 def index(request):
     result = Products.objects.raw('SELECT * FROM myapp_products ORDER BY RANDOM() LIMIT 1')[0]
-    leaderboard = Games.objects.filter(finished=True).order_by('totalScore')[:10]
+    leaderboard = Games.objects.filter(finished=True).order_by('-totalScore')[:10]
     id = dumps("%s" % (result.id))
     name = dumps("%s" % (result.name))
     price = dumps("%s" % (result.price[1:]))
