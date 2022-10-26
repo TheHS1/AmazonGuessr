@@ -45,11 +45,13 @@
 
 <table id="leaderboard" style="border: 1px solid black;">
     <tr>
+        <th>Rank</th>
         <th>ID</th>
         <th>Score</th>
     </tr>
     {% for record in leaderboard %}
     <tr>
+        <td>{{forloop.counter}}</td>
         <td>{{ record.player.id }}</td>
         <td>{{ record.totalScore }}</td>
     </tr>
