@@ -97,11 +97,17 @@ nav {
 
 #leaderboard {
     margin: auto auto;
+    border-collapse: collapse;
 }
 
 #leaderboard th, #leaderboard td {
     border: 1px solid black;
     padding: 20px;
-    margin: auto;
+    /* margin: auto; */
+}
+
+#leaderboard th {
+    background-color: #646E78;
+    color: #FFF;
 }
 
