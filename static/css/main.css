@@ -51,7 +51,8 @@ nav {
     display:grid;
     grid-auto-flow: column;
     justify-content: center;
-    margin: 20px 10px;
+    width: 99%;
+    margin: 20px 0.5%;
     border-top: 40px solid #7D8892;
     border-left: 3px solid #CECECE;
     border-right: 3px solid #CECECE;
@@ -96,18 +97,20 @@ nav {
 }
 
 #leaderboard {
-    margin: auto auto;
     border-collapse: collapse;
+    width: 99%;
+    margin: 0;
+    margin-left: 0.5%;
 }
 
 #leaderboard th, #leaderboard td {
     border: 1px solid black;
     padding: 20px;
-    /* margin: auto; */
 }
 
 #leaderboard th {
     background-color: #646E78;
     color: #FFF;
+    text-align: left;
 }
 
