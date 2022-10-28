@@ -46,13 +46,17 @@
 <table id="leaderboard">
     <tr>
         <th>Rank</th>
-        <th>ID</th>
+        <th>Username</th>
         <th>Score</th>
     </tr>
     {% for record in leaderboard %}
     <tr>
         <td>{{forloop.counter}}</td>
-        <td>{{ record.player.id }}</td>
+        {% if record.player.username is not none %}
+            <td>{{ record.player.username }}</td>
+        {% else %}
+            <td>Guest</td>
+        {% endif %}
         <td>{{ record.totalScore }}</td>
     </tr>
     {% endfor %}
