@@ -64,7 +64,7 @@ def processGame(request):
 
 def getHint(request):
     data = loads(request.body.decode('utf-8'))
-    game = Games.objects.get(player=data['id'])
+    game = Games.objects.get(player=data['id'],finished=0)
     if(game.hintsUsed < 3):
         product = Products.objects.get(id=data['prodID'])
         game.hintsUsed += 1
