@@ -36,7 +36,6 @@ def getDBData(request):
 
 def processGame(request):
     data = loads(request.body.decode('utf-8'))
-    id = -1 
     game = None
     user = None
 
