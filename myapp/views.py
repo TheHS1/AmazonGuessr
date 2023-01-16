@@ -69,7 +69,7 @@ def getHint(request):
             returnHint = game.product.name
             game.modifier = 0.85
         elif (game.hintsUsed == 3):
-            returnHint = "$" + str(random.uniform(0, float(game.product.price[1:]) * 0.25)) + " to $" + str(random.uniform(float(game.product.price[1:]), float(game.product.price[1:]) * 1.25))
+            returnHint = "$" + str(round(random.uniform(0, float(game.product.price[1:])) * 0.25,2)) + " to $" + str(round(random.uniform(float(game.product.price[1:]), float(game.product.price[1:]) * 1.25), 2))
             game.modifier = 0.65
 
     game.save()
