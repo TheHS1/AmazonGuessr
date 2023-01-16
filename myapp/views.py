@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.core import serializers
 from django.shortcuts import render
+import math
 from .models import *
 from json import dumps
 from json import loads
@@ -36,7 +37,6 @@ def getDBData(request):
 def processGame(request):
     data = loads(request.body.decode('utf-8'))
     id = -1 
-    round = -1
     game = None
     user = None
 
@@ -53,7 +53,8 @@ def processGame(request):
     if data['guess'] and 'prodID' in data:
         product = Products.objects.get(id=data['prodID'])
         game.roundNumber += 1
-        game.totalScore += abs(float(product.price[1:]) - float(data['guess']) * game.modifier * 500.0)
+        rawScore = 1000*math.e**(-0.5 * (float(product.price[1:]) - float(data['guess']))**2/200)  * game.modifier 
+        game.totalScore += 50 * round(float(rawScore/50))
         if(game.roundNumber == 5):
             game.finished=True
 
