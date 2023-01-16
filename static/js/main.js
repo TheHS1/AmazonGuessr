@@ -10,12 +10,7 @@ function getCookieValue(name)
     }
 }
 
-function processGame(prodID, event, inputText){
-    event.preventDefault();
-    stepGame(prodID);
-}
-
-function stepGame(prodID=""){
+function stepGame(){
     const xhttp = new XMLHttpRequest();
 
     // Define a callback function
@@ -27,6 +22,8 @@ function stepGame(prodID=""){
         }
         round.innerHTML="Round: " + response.round;
         totalScore.innerHTML="Score: " + response.score;
+        prodImg.src=response.img
+        guess.value=''
     }
 
     // Send a request
@@ -34,12 +31,11 @@ function stepGame(prodID=""){
     xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
     xhttp.send(JSON.stringify({
         id: getCookieValue("id"), 
-        guess: document.getElementById('guess').value,
-        prodID: prodID,
+        guess: guess.value,
     }));
 }
 
-function revealHint(prodID) {
+function revealHint() {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
         var response = JSON.parse(xhttp.responseText);
@@ -62,7 +58,6 @@ function revealHint(prodID) {
     xhttp.open("POST", "getHint");
     xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
     xhttp.send(JSON.stringify({
-        prodID: prodID, 
         id: getCookieValue("id"), 
     }));
 }
