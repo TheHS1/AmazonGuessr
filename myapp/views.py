@@ -47,10 +47,9 @@ def processGame(request):
         rawScore = 1000*math.e**(-0.5 * (float(game.product.price[1:]) - float(data['guess']))**2/200)  * game.modifier 
         game.totalScore += 50 * round(float(rawScore/50))
         game.product = Products.objects.order_by('?').first()
+        game.hintsUsed = 0
         if(game.roundNumber == 5):
             game.finished=True
-
-    game.hintsUsed = 0
     game.save()
 
     return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'img':game.product.imageSrc}, status=200)
