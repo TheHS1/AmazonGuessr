@@ -20,6 +20,9 @@ function stepGame(){
             var expiryDate = new Date();
             document.cookie = "id=" + response.id + "; expires=" + expiryDate.getMonth() + 1;
         }
+        hint1.innerHTML = ""
+        hint2.innerHTML = ""
+        hint3.innerHTML = ""
         round.innerHTML="Round: " + response.round;
         totalScore.innerHTML="Score: " + response.score;
         prodImg.src=response.img
