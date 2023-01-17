@@ -15,6 +15,13 @@
 <!-- <br> -->
 <!-- <img src={{imageSrc}}> -->
 
+<div class="modalContainer" id="scoreSummary">
+    <div class="modal">
+        <h1>Score Summary</h1>
+        <p id=roundScore></p>
+        <button id="closeModal" onClick="closeSummary()">Close</button>
+    </div>
+</div>
 
 <div id="main">
     <div id="content"> 
@@ -29,7 +36,7 @@
             <form>{% csrf_token %}
                 <label for="guess">Guess (in USD):</label><br>
                 <input type="text" id="guess" name="guess" maxlength="7" autocomplete="off"><br>
-                <button type="button" id="submit" onClick="stepGame()">Guess!</button>
+                <button type="button" id="submit" onClick="makeGuess()">Guess!</button>
                 <button type="button" id="hint" onClick="revealHint()">Hint!</button>
             </form>
             <br>

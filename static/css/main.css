@@ -82,18 +82,40 @@ nav {
     padding: 0px 65px;
 }
 
-#hint {
+button {
     font-size: 175%;
     background-color: #65D548;
     font-weight: bold;
     padding: 0px 20px;
 }
 
-#submit {
-    font-size: 175%;
-    background-color: #65D548;
-    padding: 0px 20px;
-    font-weight: bold;
+.modalContainer {
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: opacity 0.3s ease;
+}
+
+.modalContainer.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modal {
+    background-color: #ffffff;
+    border-radius 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 30px 50px;
+    width: 600px;
+    max-width: 100%;
 }
 
 #leaderboard {

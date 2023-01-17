@@ -10,6 +10,11 @@ function getCookieValue(name)
     }
 }
 
+function makeGuess() {
+    stepGame()
+    scoreSummary.classList.add('show')
+}
+
 function stepGame(){
     const xhttp = new XMLHttpRequest();
 
@@ -36,6 +41,10 @@ function stepGame(){
         id: getCookieValue("id"), 
         guess: guess.value,
     }));
+}
+
+function closeSummary() {
+    scoreSummary.classList.remove('show')
 }
 
 function revealHint() {

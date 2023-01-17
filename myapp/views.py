@@ -41,7 +41,9 @@ def processGame(request):
         prod = Products.objects.order_by('?').first()
         game = Games(player=user, product=prod)
 
-    if len(data['guess']) > 0:
+    print(data)
+    if 'guess' in data and len(data['guess']) > 0:
+        print("here")
         game.roundNumber += 1
 
         rawScore = 1000*math.e**(-0.5 * (float(game.product.price[1:]) - float(data['guess']))**2/200)  * game.modifier 
