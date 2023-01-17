@@ -12,19 +12,6 @@ def index(request):
     leaderboard = Games.objects.filter(finished=True).order_by('-totalScore')[:10]
     return render(request, "myapp/home.html", context={"leaderboard": leaderboard})
 
-def getDBData(request):
-    # Use request id to get relevant data from db
-    id = loads(request.body.decode('utf-8'))['id']
-    result = Products.objects.raw('SELECT * FROM myapp_products WHERE id=%s', [id])[0]
-    name = dumps("%s" % (result.name))
-    price = dumps("%s" % (result.price[1:]))
-    ratings = dumps("%s" % (result.ratings))
-    category = dumps("%s" % (result.category))
-    url = dumps("%s" % (result.url))
-
-    # send a json response 
-    return JsonResponse({ 'name':name, 'price':price, 'ratings':ratings, 'category':category, 'url': url }, status=200)
-
 def processGame(request):
     data = loads(request.body.decode('utf-8'))
     game = None
