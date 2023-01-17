@@ -31,6 +31,7 @@ function stepGame(){
         round.innerHTML="Round: " + response.round;
         totalScore.innerHTML="Score: " + response.score;
         prodImg.src=response.img
+        roundScore.innerHTML="<strong>You scored " + response.roundScore + " points!</strong><br><br>" + "Actual price: " + response.price + "<br> Your guess: " + guess.value + "<br>Score modifier: " + response.modifier
         guess.value=''
     }
 

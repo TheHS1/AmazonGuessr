@@ -16,6 +16,7 @@ def processGame(request):
     data = loads(request.body.decode('utf-8'))
     game = None
     user = None
+    roundScore = 0
 
     if 'id' not in data:
         user = User()
@@ -34,14 +35,15 @@ def processGame(request):
         game.roundNumber += 1
 
         rawScore = 1000*math.e**(-0.5 * (float(game.product.price[1:]) - float(data['guess']))**2/200)  * game.modifier 
-        game.totalScore += 50 * round(float(rawScore/50))
+        roundScore = 50 * round(float(rawScore/50))
+        game.totalScore += roundScore
         game.product = Products.objects.order_by('?').first()
         game.hintsUsed = 0
         if(game.roundNumber == 5):
             game.finished=True
     game.save()
 
-    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'img':game.product.imageSrc}, status=200)
+    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': game.product.price, 'img':game.product.imageSrc}, status=200)
 
 def getHint(request):
     data = loads(request.body.decode('utf-8'))
