@@ -76,10 +76,9 @@ nav {
 }
 
 #guess {
-    width: 20vh;
+    width: 30vh;
     font-size: 300%;
     margin-bottom: 10px;
-    padding: 0px 65px;
 }
 
 button {
