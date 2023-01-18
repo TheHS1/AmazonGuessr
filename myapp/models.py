@@ -29,6 +29,6 @@ class Games(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
     modifier = models.FloatField(default=1.0)
     totalScore = models.IntegerField(default=0)
-    roundNumber = models.IntegerField(default=0)
+    roundNumber = models.IntegerField(default=1)
     hintsUsed = models.IntegerField(default=0)
     finished = models.BooleanField(default=False)

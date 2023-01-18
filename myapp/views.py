@@ -28,21 +28,31 @@ def processGame(request):
     if game is None:
         prod = Products.objects.order_by('?').first()
         game = Games(player=user, product=prod)
+        game.save()
+
 
     print(data)
     if 'guess' in data and len(data['guess']) > 0:
-        game.roundNumber += 1
 
         rawScore = 1000*math.e**(-0.5 * (float(game.product.price[1:]) - float(data['guess']))**2/200)  * game.modifier 
         roundScore = 50 * round(float(rawScore/50))
         game.totalScore += roundScore
+        oldProd = game.product
         game.product = Products.objects.order_by('?').first()
         game.hintsUsed = 0
         if(game.roundNumber == 5):
             game.finished=True
-    game.save()
+            newGame = Games(player=user, product=game.product)
+            newGame.save()
+            game.save()
+            return JsonResponse({ 'id': newGame.player.id, 'round': newGame.roundNumber, 'score': newGame.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':newGame.product.imageSrc}, status=200)
+        else:
+            game.roundNumber += 1
+        game.save()
+        return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':game.product.imageSrc}, status=200)
 
-    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': game.product.price, 'img':game.product.imageSrc}, status=200)
+    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'img':game.product.imageSrc}, status=200)
+
 
 def getHint(request):
     data = loads(request.body.decode('utf-8'))
