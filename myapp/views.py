@@ -64,23 +64,24 @@ def getHint(request):
     if request.method =='POST':
         data = loads(request.body.decode('utf-8'))
         game = Games.objects.get(player=data['id'],finished=0)
-        if(game.hintsUsed < 3):
+
+        if (game.hintsUsed < 3):
             game.hintsUsed += 1
-            returnHint = None
 
-            if (game.hintsUsed == 1):
-                returnHint = game.product.ratings
-                game.modifier = 0.95
-            elif (game.hintsUsed == 2):
-                returnHint = game.product.name
-                game.modifier = 0.85
-            elif (game.hintsUsed == 3):
-                returnHint = "$" + str(round(random.uniform(0, float(game.product.price[1:])) * 0.75,2)) + " to $" + str(round(random.uniform(float(game.product.price[1:]), float(game.product.price[1:]) * 1.25), 2))
-                game.modifier = 0.65
+        if (game.hintsUsed == 1):
+            game.modifier = 0.95
+            game.save()
+            return JsonResponse({ 'hintNum': game.hintsUsed, 'hint1': game.product.ratings}, status=200)
+        if (game.hintsUsed == 2):
+            game.modifier = 0.85
+            game.save()
+            return JsonResponse({ 'hintNum': game.hintsUsed, 'hint1': game.product.ratings, 'hint2': game.product.name}, status=200)
 
+
+        priceRange = "$" + str(round(random.uniform(0, float(game.product.price[1:])) * 0.75,2)) + " to $" + str(round(random.uniform(float(game.product.price[1:]), float(game.product.price[1:]) * 1.25), 2))
+        game.modifier = 0.65
         game.save()
-
-        return JsonResponse({ 'hintNum': game.hintsUsed, 'hint': returnHint}, status=200)
+        return JsonResponse({ 'hintNum': game.hintsUsed, 'hint1': game.product.ratings, 'hint2': game.product.name, 'hint3': priceRange}, status=200)
     else:
         return HttpResponseNotFound('<h1>Invalid Request Type</h1>')
 

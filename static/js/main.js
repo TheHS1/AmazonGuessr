@@ -81,17 +81,20 @@ function revealHint() {
     xhttp.onload = function() {
         var response = JSON.parse(xhttp.responseText);
         hintNum = response.hintNum
-        hint = response.hint
 
-        if (hintNum == 1) {
-            hint1.innerHTML = "Product Ratings: " + hint;
+        if (hintNum >= 1) {
+            if (hintNum >= 2) {
+                if (hintNum == 3) {
+                    hint3.innerHTML = "Product Price Range " + response.hint3;
+                    hint3.style.display = "block"
+                }
+
+                hint2.innerHTML = "Product Name: " + response.hint2;
+                hint2.style.display = "block"
+            }
+
+            hint1.innerHTML = "Product Ratings: " + response.hint1;
             hint1.style.display = "block"
-        } else if (hintNum == 2) {
-            hint2.innerHTML = "Product Name: " + hint;
-            hint2.style.display = "block"
-        } else if (hintNum == 3) {
-            hint3.innerHTML = "Product Price Range " + hint;
-            hint3.style.display = "block"
         }
     }
 
