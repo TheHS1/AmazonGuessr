@@ -5,4 +5,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("processGame", views.processGame, name="processGame"),
     path("getHint", views.getHint, name="getHint"),
+    path("updateLeaderboard", views.updateLeaderboard, name="updateLeaderboard"),
 ]

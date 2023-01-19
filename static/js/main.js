@@ -1,5 +1,5 @@
 window.onload = (event) => {
-    stepGame()
+    load()
 };
 
 function getCookieValue(name) 
@@ -10,9 +10,28 @@ function getCookieValue(name)
     }
 }
 
-function makeGuess() {
-    stepGame()
-    scoreSummary.classList.add('show')
+function load() {
+    const xhttp = new XMLHttpRequest();
+
+    // Define a callback function
+    xhttp.onload = function() {
+        var response = JSON.parse(xhttp.responseText);
+        if(!getCookieValue("id")) {
+            var expiryDate = new Date();
+            document.cookie = "id=" + response.id + "; expires=" + expiryDate.getMonth() + 1;
+        }
+        round.innerHTML="Round: " + response.round;
+        totalScore.innerHTML="Score: " + response.score;
+        prodImg.src=response.img
+    }
+
+    // Send a request
+    xhttp.open("POST", "processGame");
+    xhttp.setRequestHeader("X-CSRFToken", getCookieValue("csrftoken"));
+    xhttp.send(JSON.stringify({
+        id: getCookieValue("id"), 
+    }));
+
 }
 
 function stepGame(){
@@ -29,9 +48,16 @@ function stepGame(){
         hint2.innerHTML = ""
         hint3.innerHTML = ""
         round.innerHTML="Round: " + response.round;
-        totalScore.innerHTML="Score: " + response.score;
         prodImg.src=response.img
-        roundScore.innerHTML="<strong>You scored " + response.roundScore + " points!</strong><br><br>" + "Actual price: " + response.price + "<br> Your guess: " + guess.value + "<br>Score modifier: " + response.modifier
+        if(response.finished) {
+            totalScore.innerHTML="Score: 0";
+            finalScore.innerHTML="Your final score was " + response.score
+            finalSummary.classList.add('show')
+        } else {
+            totalScore.innerHTML="Score: " + response.score;
+            roundScore.innerHTML="<strong>You scored " + response.roundScore + " points!</strong><br><br>" + "Actual price: " + response.price + "<br> Your guess: " + guess.value + "<br>Score modifier: " + response.modifier
+            scoreSummary.classList.add('show')
+        }
         guess.value=''
     }
 
@@ -44,8 +70,10 @@ function stepGame(){
     }));
 }
 
-function closeSummary() {
-    scoreSummary.classList.remove('show')
+function closeModals() {
+    document.querySelectorAll(".modalContainer").forEach(function(element){
+        element.classList.remove("show");  // Add the class that you want to add
+    });
 }
 
 function revealHint() {

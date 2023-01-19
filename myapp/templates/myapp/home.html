@@ -6,7 +6,20 @@
     <div class="modal">
         <h1>Score Summary</h1>
         <p id=roundScore></p>
-        <button id="closeModal" onClick="closeSummary()">Close</button>
+        <button onClick="closeModals()">Close</button>
+    </div>
+</div>
+
+<div class="modalContainer" id="finalSummary">
+    <div class="modal">
+        <h1>Final Summary</h1>
+        <p id=finalScore></p>
+        <form method="post" action="updateLeaderboard">{% csrf_token %}
+            <label for="name">Enter your name:</label><br>
+            <input type="text" maxLength="20" id="name" name="name" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        <button onClick="closeModals()">Close</button>
     </div>
 </div>
 
@@ -20,7 +33,7 @@
 
         <div id="inputForm">
             <h3>What do you think the price of this item is?</h3>
-            <form method="post" onsubmit="makeGuess(); return false">{% csrf_token %}
+            <form method="post" onsubmit="stepGame(); return false">{% csrf_token %}
                 <label for="guess">Guess (in USD):</label><br>
                 <input type="number" min="0" step="0.01" id="guess" name="guess" maxlength="7" autocomplete="off" required><br>
                 <button type="submit" id="submit">Guess!</button>

@@ -1,6 +1,8 @@
+from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 from django.shortcuts import render
+from django.shortcuts import redirect
 import math
 from .models import *
 from json import dumps
@@ -45,13 +47,13 @@ def processGame(request):
             newGame = Games(player=user, product=game.product)
             newGame.save()
             game.save()
-            return JsonResponse({ 'id': newGame.player.id, 'round': newGame.roundNumber, 'score': newGame.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':newGame.product.imageSrc}, status=200)
+            return JsonResponse({ 'id': newGame.player.id, 'round': newGame.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':newGame.product.imageSrc, 'finished': game.finished}, status=200)
         else:
             game.roundNumber += 1
         game.save()
-        return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':game.product.imageSrc}, status=200)
+        return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'modifier': game.modifier, 'price': oldProd.price, 'img':game.product.imageSrc, 'finished': game.finished}, status=200)
 
-    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'img':game.product.imageSrc}, status=200)
+    return JsonResponse({ 'id': game.player.id, 'round': game.roundNumber, 'score': game.totalScore, 'roundScore': roundScore, 'img':game.product.imageSrc, 'finished': game.finished}, status=200)
 
 
 def getHint(request):
@@ -74,3 +76,11 @@ def getHint(request):
     game.save()
 
     return JsonResponse({ 'hintNum': game.hintsUsed, 'hint': returnHint}, status=200)
+
+def updateLeaderboard(request):
+    name = request.POST.get('name','guest')
+    idVal = request.COOKIES.get('id')
+    user = User.objects.get(id=idVal)
+    user.username = name
+    user.save()
+    return redirect("/")
