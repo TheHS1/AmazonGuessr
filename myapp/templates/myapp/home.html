@@ -17,9 +17,11 @@
         <form method="post" action="updateLeaderboard">{% csrf_token %}
             <label for="name">Enter your name:</label><br>
             <input type="text" maxLength="20" id="name" name="name" required><br>
-            <button type="submit">Submit</button>
+            <div>
+                <button type="submit">Submit</button>
+                <button onClick="closeModals()" style="float: right">Close</button>
+            </div>
         </form>
-        <button onClick="closeModals()">Close</button>
     </div>
 </div>
 
