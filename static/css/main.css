@@ -51,7 +51,6 @@ nav {
     display:grid;
     grid-auto-flow: column;
     justify-content: center;
-    width: 99%;
     margin: 20px 0.5%;
     border-top: 40px solid #7D8892;
     border-left: 3px solid #CECECE;
