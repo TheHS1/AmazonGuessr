@@ -51,11 +51,11 @@ function stepGame(){
         prodImg.src=response.img
         if(response.finished) {
             totalScore.innerHTML="Score: 0";
-            finalScore.innerHTML="Your final score was " + response.score
+            finalScore.innerHTML="You scored " + response.roundScore + " points that round <br>" + "<strong>Your final score was " + response.score + "</strong>"
             finalSummary.classList.add('show')
         } else {
             totalScore.innerHTML="Score: " + response.score;
-            roundScore.innerHTML="<strong>You scored " + response.roundScore + " points!</strong><br><br>" + "Actual price: " + response.price + "<br> Your guess: " + guess.value + "<br>Score modifier: " + response.modifier
+            roundScore.innerHTML="<strong>You scored " + response.roundScore + " points!</strong><br><br>" + "Actual price: " + response.price + "<br> Your guess: $" + parseFloat(guess.value).toFixed(2) + "<br>Score modifier: " + response.modifier
             scoreSummary.classList.add('show')
         }
         guess.value=''
