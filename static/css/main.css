@@ -129,6 +129,7 @@ button {
     width: 99%;
     margin: 0;
     margin-left: 0.5%;
+    margin-bottom: 20px;
 }
 
 #leaderboard th, #leaderboard td {
